@@ -1,7 +1,7 @@
 # ZeroRepo - Python Dependencies
 
 # Core LLM clients
-openai>=2.14.0
+openai>=1.40.0,<2.0.0
 anthropic>=0.75.0
 google-genai>=1.24.0
 
@@ -97,3 +97,5 @@ datasets>=3.6.0
 pexpect>=4.9.0
 unidiff>=0.7.5
 pre-commit>=4.2.0
+libcst>=1.1.0
+sentencepiece

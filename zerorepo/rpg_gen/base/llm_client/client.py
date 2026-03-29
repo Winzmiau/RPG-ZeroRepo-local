@@ -355,8 +355,10 @@ class LLMClient:
         start = time.time()
 
         while retries < max_retries:
+            print(f"\nDEBUG >>> LLM CALL {retries+1}/{max_retries} to {self.model} at {self.config.base_url}")
             try:
                 raw_response = self._call(messages)
+                print(f"DEBUG <<< RAW RESPONSE (first 100 chars): {str(raw_response)[:100]}")
 
                 if not raw_response:
                     raise ValueError("Empty response from model")
@@ -398,11 +400,16 @@ class LLMClient:
                 if self.config.log:
                     duration = round(time.time() - start, 2)
                     print(f"[LLMClient] Structured output from '{self.model}' in {duration}s")
+                    print(f"[LLMClient] RAW RESPONSE: {raw_response[:200]}...")
 
                 return result, raw_response
 
             except Exception as e:
                 print(f"[LLMClient] Error in call_with_structure_output: {e}")
+                import traceback
+                traceback.print_exc()
+                if 'raw_response' in locals():
+                    print(f"[LLMClient] FAILED RAW RESPONSE: {raw_response}")
                 if retries >= max_retries:
                     print("[LLMClient] Maximum retries reached for structured output.")
                     return None, ""

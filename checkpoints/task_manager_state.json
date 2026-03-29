@@ -1,0 +1,9 @@
+{
+    "feature_selection": false,
+    "feature_refactoring": false,
+    "build_skeleton": false,
+    "build_function": false,
+    "plan_tasks": false,
+    "code_generation": false,
+    "current_stage": "proposal_level"
+}

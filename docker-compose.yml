@@ -1,0 +1,25 @@
+services:
+  rpg-engine:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.hardened
+    container_name: rpg_zerorepo_engine
+    tty: true
+    command: tail -f /dev/null
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - .:/app
+    mem_limit: 4g
+    restart: always
+  
+  local-llm:
+    image: ollama/ollama:latest
+    container_name: rpg_local_llm
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+
+volumes:
+  ollama_data:
